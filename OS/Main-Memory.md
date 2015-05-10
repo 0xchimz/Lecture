@@ -65,3 +65,19 @@
 ##Paging with associative
 ![](./paging-associate.jpg)
 * เนื่องจากไอวิธี paging ธรรมดามันช้ามากๆๆๆๆๆ ก็เลยต้องหาอะไรมาเก็บคล้ายๆ cache ชื่อ Associative Memory หรือ translation look-aside buffers (TLBs)
+* ถ้า page ต้องการ physical memory ที่มีอยู่ใน TLBs อยู่แล้ว ก็ไม่ต้องเสียเวลาแปลงจาก Logical เป็น Physical แต่จะใช้ Physical ที่มีอยู่ใน TLBs เลย ถ้าเจอจะเรียก TLB hit ถ้าไม่เจอ TLB miss
+
+##EAT(Effective Access Time)
+* Hit ratio(alpha) - อัตราการเจอใน TLB
+* Associative Lookup<br>
+EAT = เจอใน TLB + ไม่เจอใน TLB
+### Example
+alpha = 80%, Associative Lookup = 20ns for TLB search, 100 ns for memory access<br>
+EAT = (80/100 x 100) + (20/100x100 + 100)<br>
+EAT = 200 ns<br>
+
+##Memory Protection
+* ใน page table จะมี 2 ค่าที่คอยบอกสถานะ
+* valid - ในส่วนนั้นสามารถใช้งานได้
+* invalid - ไม่สามารถในส่วนนั้นได้
+* valid-invalid bit เอาไว้บอกว่าจะเก็บลงใน frame ได้หรือไม่ได้
