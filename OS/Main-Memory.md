@@ -99,10 +99,12 @@ EAT = 200 ns<br>
 ##Hash Page Table
 ![](./hash-table.jpg)
 * โดยปกติ ถ้าไม่เจอใน TBL สำหรับครั้งแรกสุด Logical Address จะแปลงไปเป็น Physical Memory หลังจากใช้แล้วมันจะ Hash แล้วเก็บไว้ใน hash table ครั้งต่อๆไป ถ้า miss ใน TBL จะมาหาใน Hash Table ก่อน ถ้ามีแล้วก็จะไปที่ physical memory เดิมที่ hash เก็บไว้เลย
-* Hash Table จะเก็บทุกๆครั้งที่มีการแปลง Logical Address เป็น Physical Address ทั้งหมดทุกครั้ง 
+* Hash Table จะเก็บทุกๆครั้งที่มีการแปลง Logical Address เป็น Physical Address ทั้งหมดทุกครั้ง
 
 ##Inverted Page
 ![](./Inverted-Page.jpg)
 * จะใช้ pid ในการหา p (physical address)
 * ช้ามากในการหา pid
 * แต่จะประหยัด memory มากๆ
+* ขนาดของ page table จะมีขนาดเท่ากับ physical memory
+* ที่เรียก Inverted เพราะว่า เรารู้ตำแหน่งของ physical address หมดแล้ว เวลาเรียกใช้จึงเป็นการมา search ใน page table ทั้งหมด
