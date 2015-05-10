@@ -87,6 +87,7 @@ EAT = 200 ns<br>
 * process ส่วนไหนที่ทำงานเหมือนกันก็จะแชร์ page เลย ใช้ physical memory ส่วนเดียวกันเลย
 
 ##Hierarchical Page Tables
+* ทุกอย่างจะผ่านกระบวนการของ TLB ก่อน ถ้าไม่ได้ก็จะทำอะไรพวกนี้ทั้ง 3 ตัว
 ###Two-Level Page-Table Scheme
 ![](./two-level.jpg)
 * คือถ้ามี process เยอะสัสๆ index ก็จะยาวไปเรื่อยยๆๆๆๆๆๆ ก็เลยต้องซอยย่อยๆ เพื่อไม่ให้ index มันยาวโคตรๆ จัดเป็นหมวดหมู่ๆไป เหมือน หนังสือถ้ามี 400 บท แต่ถ้าย่อย 400 บทเป็น 10 ตอน ก็จะเหลือแต่ละตอนแค่ 40 บท ทำให้มันง่ายในการ access ค่า
@@ -97,7 +98,8 @@ EAT = 200 ns<br>
 
 ##Hash Page Table
 ![](./hash-table.jpg)
-* เอา logical address มาใส่ hash fn แล้วเชื่อมไปยัง hash นั้นๆใน table สิ่งที่ได้ออกมาใน table จะเชื่อมเป็น link list กับ physical address ใน memory อยู่แล้ว
+* โดยปกติ ถ้าไม่เจอใน TBL สำหรับครั้งแรกสุด Logical Address จะแปลงไปเป็น Physical Memory หลังจากใช้แล้วมันจะ Hash แล้วเก็บไว้ใน hash table ครั้งต่อๆไป ถ้า miss ใน TBL จะมาหาใน Hash Table ก่อน ถ้ามีแล้วก็จะไปที่ physical memory เดิมที่ hash เก็บไว้เลย
+* Hash Table จะเก็บทุกๆครั้งที่มีการแปลง Logical Address เป็น Physical Address ทั้งหมดทุกครั้ง 
 
 ##Inverted Page
 ![](./Inverted-Page.jpg)
