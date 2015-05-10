@@ -81,3 +81,19 @@ EAT = 200 ns<br>
 * valid - ในส่วนนั้นสามารถใช้งานได้
 * invalid - ไม่สามารถในส่วนนั้นได้
 * valid-invalid bit เอาไว้บอกว่าจะเก็บลงใน frame ได้หรือไม่ได้
+
+##Shared Pages
+![](./shared-pages.jpg)
+* process ส่วนไหนที่ทำงานเหมือนกันก็จะแชร์ page เลย ใช้ physical memory ส่วนเดียวกันเลย
+
+##Hierarchical Page Tables
+###Two-Level Page-Table Scheme
+![](./two-level.jpg)
+* คือถ้ามี process เยอะสัสๆ index ก็จะยาวไปเรื่อยยๆๆๆๆๆๆ ก็เลยต้องซอยย่อยๆ เพื่อไม่ให้ index มันยาวโคตรๆ จัดเป็นหมวดหมู่ๆไป เหมือน หนังสือถ้ามี 400 บท แต่ถ้าย่อย 400 บทเป็น 10 ตอน ก็จะเหลือแต่ละตอนแค่ 40 บท ทำให้มันง่ายในการ access ค่า
+* รูปแบบของ Logical Address แบบใหม่
+![](./two-level-2.jpg)
+![](./two-level-3.jpg)
+![](./two-level-4.jpg)
+
+##Hash Page Table
+![](./hash-table.jpg)
