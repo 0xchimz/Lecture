@@ -97,3 +97,10 @@ EAT = 200 ns<br>
 
 ##Hash Page Table
 ![](./hash-table.jpg)
+* เอา logical address มาใส่ hash fn แล้วเชื่อมไปยัง hash นั้นๆใน table สิ่งที่ได้ออกมาใน table จะเชื่อมเป็น link list กับ physical address ใน memory อยู่แล้ว
+
+##Inverted Page
+![](./Inverted-Page.jpg)
+* จะใช้ pid ในการหา p (physical address)
+* ช้ามากในการหา pid
+* แต่จะประหยัด memory มากๆ
