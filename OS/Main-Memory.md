@@ -1,0 +1,67 @@
+#Main Memory
+##Memory Binding
+![](./address-binding.jpg)
+* compile time คือ แปลงจากภาษาชั้นสูงเป็นภาษาเครื่อง ให้เครื่องทำงาน
+* load time คือ ไว้จัดการ จัดตำแหน่งของ memory ให้กับ process
+
+##Logical vs Physical Address
+        CPU         =>          MMU             =>    Memory
+    (logical)   4 (relocation register)     10    (Physical)
+
+* ช่วงการแปลงจาก Logical ไป Physical เป็นช่วง Load Time ในช่วง Binding Address
+
+##Dynamic relocation using a relocation register
+![](./Dynamic-relocation.jpg)
+* กระบวนการแปลง Logical address ไปเป็น physical address
+
+##Dynamic Linking
+* **routine** หมายถึงงาน อ้างถึงได้หลายอย่างตั้งแต่ Method, process บลาๆๆๆ
+* **stub** คือตัวเก็บ address ของ routine เก่าๆ
+
+เวลาจะเรียกใช้ Process ใหม่ๆ จะไปเช็คใน stub ก่อน ว่าเคยมีใน memory แล้วหรือยัง ถ้ามีแล้วจะไม่เรียกมาเก็บใน memory ใหม่ ก็ใช้ตัวเดิมไปเลย
+
+**shared libraries** - คือ Dynamic เป็นการทำงานของ process พร้อมๆกันได้หลายๆอย่าง เลยมีการแชร์พวก library ใน RAM เพื่อถ้ามีใครจะใช้อีกก็ไม่ต้องไปโหลดจาก HDD มาใหม่
+
+##Contiguous Allocation
+* Process มันหั่นไม่ได้นะเพิ่ลลลลล
+* การจัดสรรพื้นที่ให้ติดกัน
+* คือการจัดให้ Process ใช้พื้นที่ว่างใน Memory ให้มันเต็มๆๆๆ จากข้างบนก่อน เพื่อจะได้เหลือพื้นที่ว่างอันใหญ่ๆ จะได้มีให้ใช้ Process อื่นได้ง่ายขึ้น ถ้าใช้มั่วๆ มันจะเหลือ space เล็กๆๆๆๆ เต็มเลย จะจัด Process ใหม่ได้ยาก
+* ใช้ Process อย่างน้อย 2 อันถึงจะเรียกว่าติดกัน
+![](./Relocation-register.jpg)
+
+##Multiple-partition allocation
+* เท่าที่เข้าใจ ก็คือไอ Contiguous แต่เป็น Contiguous แบบมี Process มากมายมหาศาล =3=?
+![](./multiple-allocation.jpg)
+
+##Dynamic Storage-Allocation Problem
+* วิธีว่าง Process ใน memory
+  * First-fit - เจอช่องว่างพอก็ใส่เลย
+  * Best-fit - ก็
+  * Worst-fit -
+
+##Fragmentation
+1. **external** - มีพื้นที่ว่างเล็กๆจำนวนมาก ทำให้ใส่ Process ลงไปไม่ได้เลย ก็เลยต้อง compaction(บีบอัด) ให้เหลือที่เยอะๆ จะได้จัด Process ลงได้
+2. **Internal** - Process จะใช้ Memory แค่ 10(Request) แต่ดันไปจอง 12 หรือ มากกว่า(Allocated Memory) ทำให้ใช้ Memory เปลือง ในแต่ละ Process ผิดพลาดน้อย แต่ ถ้าเกิดเยอะๆ จะทำให้เปลืองมาก
+
+##Segmentation
+* เป็น MMU ใช้ในการเปลี่ยน Logical ไป Physical โดยวิธี Segmentation
+* การเปลี่ยนจาก Logical address ไป Physical Address ทำได้หลายวิธี
+![](./SegmentationHardware.jpg)
+
+ต้องสร้าง segment table มาก่อนอันแรก เป็นตัวที่เปลี่ยน Logical เป็น Physical Memory <br>
+**s/d** - แปลง Logical to Physical _s_ คือ segment number _d_ คือ offset<br>
+**limit** - length of segment<br>
+**d (offset)** - ขนาดของ process<br>
+**Logical จะถูกแปลงที่ S/D แ้ลวจะเอามาเช็คก่อนว่าที่ว่างใน memory ว่างพอให้ใส่หรือเปล่า โดยตัว limit จะเป็น length ของช่องที่จะเอาไปใส่ ส่วน offset คือ length ของ process ที่จะใส่ในช่อง ถ้า offset น้อยกว่าก็จะใส่ลงไปใน memory ได้**
+
+##Paging
+* เป็น MMU อีกแบบนึง ในการเปลี่ยน Logical เป็น Physical
+![](./paging.jpg)
+* page table เป็นตัวแปลง Logical เป็น Physical
+* ถ้าเกิดเราเก็บข้อมูลแบบ Best-fit Worst-fit จะเกิด **External Fragmentation** ได้ วิธีนี้จะใช้แก้ปัญหาดังกล่าว
+* **เพราะว่า Paging วิธีนี้จะทำให้ process ซอยแบ่งให้พอดีกับช่อง memory ได้ จะเก็บไว้ตรงไหนก็ได้ ตามภาพข้างล่าง**
+![](./paging-table.jpg)
+
+##Paging with associative
+![](./paging-associate.jpg)
+* เนื่องจากไอวิธี paging ธรรมดามันช้ามากๆๆๆๆๆ ก็เลยต้องหาอะไรมาเก็บคล้ายๆ cache ชื่อ Associative Memory หรือ translation look-aside buffers (TLBs)
