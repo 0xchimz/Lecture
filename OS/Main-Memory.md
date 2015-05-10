@@ -1,6 +1,6 @@
 #Main Memory
 ##Memory Binding
-![](./address-binding.jpg)
+![](./imgs/address-binding.jpg)
 * compile time คือ แปลงจากภาษาชั้นสูงเป็นภาษาเครื่อง ให้เครื่องทำงาน
 * load time คือ ไว้จัดการ จัดตำแหน่งของ memory ให้กับ process
 
@@ -11,7 +11,7 @@
 * ช่วงการแปลงจาก Logical ไป Physical เป็นช่วง Load Time ในช่วง Binding Address
 
 ##Dynamic relocation using a relocation register
-![](./Dynamic-relocation.jpg)
+![](./imgs/Dynamic-relocation.jpg)
 * กระบวนการแปลง Logical address ไปเป็น physical address
 
 ##Dynamic Linking
@@ -27,11 +27,11 @@
 * การจัดสรรพื้นที่ให้ติดกัน
 * คือการจัดให้ Process ใช้พื้นที่ว่างใน Memory ให้มันเต็มๆๆๆ จากข้างบนก่อน เพื่อจะได้เหลือพื้นที่ว่างอันใหญ่ๆ จะได้มีให้ใช้ Process อื่นได้ง่ายขึ้น ถ้าใช้มั่วๆ มันจะเหลือ space เล็กๆๆๆๆ เต็มเลย จะจัด Process ใหม่ได้ยาก
 * ใช้ Process อย่างน้อย 2 อันถึงจะเรียกว่าติดกัน
-![](./Relocation-register.jpg)
+![](./imgs/Relocation-register.jpg)
 
 ##Multiple-partition allocation
 * เท่าที่เข้าใจ ก็คือไอ Contiguous แต่เป็น Contiguous แบบมี Process มากมายมหาศาล =3=?
-![](./multiple-allocation.jpg)
+![](./imgs/multiple-allocation.jpg)
 
 ##Dynamic Storage-Allocation Problem
 * วิธีว่าง Process ใน memory
@@ -46,7 +46,7 @@
 ##Segmentation
 * เป็น MMU ใช้ในการเปลี่ยน Logical ไป Physical โดยวิธี Segmentation
 * การเปลี่ยนจาก Logical address ไป Physical Address ทำได้หลายวิธี
-![](./SegmentationHardware.jpg)
+![](./imgs/SegmentationHardware.jpg)
 
 ต้องสร้าง segment table มาก่อนอันแรก เป็นตัวที่เปลี่ยน Logical เป็น Physical Memory <br>
 **s/d** - แปลง Logical to Physical _s_ คือ segment number _d_ คือ offset<br>
@@ -56,14 +56,14 @@
 
 ##Paging
 * เป็น MMU อีกแบบนึง ในการเปลี่ยน Logical เป็น Physical
-![](./paging.jpg)
+![](./imgs/paging.jpg)
 * page table เป็นตัวแปลง Logical เป็น Physical
 * ถ้าเกิดเราเก็บข้อมูลแบบ Best-fit Worst-fit จะเกิด **External Fragmentation** ได้ วิธีนี้จะใช้แก้ปัญหาดังกล่าว
 * **เพราะว่า Paging วิธีนี้จะทำให้ process ซอยแบ่งให้พอดีกับช่อง memory ได้ จะเก็บไว้ตรงไหนก็ได้ ตามภาพข้างล่าง**
-![](./paging-table.jpg)
+![](./imgs/paging-table.jpg)
 
 ##Paging with associative
-![](./paging-associate.jpg)
+![](./imgs/paging-associate.jpg)
 * เนื่องจากไอวิธี paging ธรรมดามันช้ามากๆๆๆๆๆ ก็เลยต้องหาอะไรมาเก็บคล้ายๆ cache ชื่อ Associative Memory หรือ translation look-aside buffers (TLBs)
 * ถ้า page ต้องการ physical memory ที่มีอยู่ใน TLBs อยู่แล้ว ก็ไม่ต้องเสียเวลาแปลงจาก Logical เป็น Physical แต่จะใช้ Physical ที่มีอยู่ใน TLBs เลย ถ้าเจอจะเรียก TLB hit ถ้าไม่เจอ TLB miss
 
@@ -83,26 +83,26 @@ EAT = 200 ns<br>
 * valid-invalid bit เอาไว้บอกว่าจะเก็บลงใน frame ได้หรือไม่ได้
 
 ##Shared Pages
-![](./shared-pages.jpg)
+![](./imgs/shared-pages.jpg)
 * process ส่วนไหนที่ทำงานเหมือนกันก็จะแชร์ page เลย ใช้ physical memory ส่วนเดียวกันเลย
 
 ##Hierarchical Page Tables
 * ทุกอย่างจะผ่านกระบวนการของ TLB ก่อน ถ้าไม่ได้ก็จะทำอะไรพวกนี้ทั้ง 3 ตัว
 ###Two-Level Page-Table Scheme
-![](./two-level.jpg)
+![](./imgs/two-level.jpg)
 * คือถ้ามี process เยอะสัสๆ index ก็จะยาวไปเรื่อยยๆๆๆๆๆๆ ก็เลยต้องซอยย่อยๆ เพื่อไม่ให้ index มันยาวโคตรๆ จัดเป็นหมวดหมู่ๆไป เหมือน หนังสือถ้ามี 400 บท แต่ถ้าย่อย 400 บทเป็น 10 ตอน ก็จะเหลือแต่ละตอนแค่ 40 บท ทำให้มันง่ายในการ access ค่า
 * รูปแบบของ Logical Address แบบใหม่
-![](./two-level-2.jpg)
-![](./two-level-3.jpg)
-![](./two-level-4.jpg)
+![](./imgs/two-level-2.jpg)
+![](./imgs/two-level-3.jpg)
+![](./imgs/two-level-4.jpg)
 
 ##Hash Page Table
-![](./hash-table.jpg)
+![](./imgs/hash-table.jpg)
 * โดยปกติ ถ้าไม่เจอใน TBL สำหรับครั้งแรกสุด Logical Address จะแปลงไปเป็น Physical Memory หลังจากใช้แล้วมันจะ Hash แล้วเก็บไว้ใน hash table ครั้งต่อๆไป ถ้า miss ใน TBL จะมาหาใน Hash Table ก่อน ถ้ามีแล้วก็จะไปที่ physical memory เดิมที่ hash เก็บไว้เลย
 * Hash Table จะเก็บทุกๆครั้งที่มีการแปลง Logical Address เป็น Physical Address ทั้งหมดทุกครั้ง
 
 ##Inverted Page
-![](./Inverted-Page.jpg)
+![](./imgs/Inverted-Page.jpg)
 * จะใช้ pid ในการหา p (physical address)
 * ช้ามากในการหา pid
 * แต่จะประหยัด memory มากๆ
