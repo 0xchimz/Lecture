@@ -41,7 +41,7 @@ Memory ส่วนไหนที่ไม่ได้ใช้ก็จะเ�
 
 ##Page Fault Rate
 * มีค่าตั้งแต่ 0 ... 1
-* EAT = hit + miss
+* EAT = hit + missH
 * EAT = (1-p) x time + p x time
 
 ##Copy-on-Write

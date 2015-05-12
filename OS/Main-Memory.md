@@ -62,6 +62,7 @@ CPU -> Memory -> Hard disk
 - มี 2 วิธี คือ Segmentation กับ Paging
 
 ###Segmentation
+* ใช้ Hardware 2 ตัว 1.Segment-table base register (STBR) 2. Segment-table length register (STLR)
 * เป็น MMU ใช้ในการเปลี่ยน Logical ไป Physical โดยวิธี Segmentation
 * การเปลี่ยนจาก Logical address ไป Physical Address ทำได้หลายวิธี
 ![](./imgs/SegmentationHardware.jpg)
