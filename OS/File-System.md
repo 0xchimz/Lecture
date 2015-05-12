@@ -1,5 +1,7 @@
 #File System Implementation
 
+>เปิดวาป แนะนำให้อ่านที่นี่ https://github.com/pNagi/Lecture/blob/master/os/File-System%20Implementation.md
+
 ##Hard Disk
 * เนื่องจา่ก Hard Disk มันใหญ่มาก ก็เลยต้องแบ่งเป็น Block เล็กๆ group ช่องเล็กๆ เข้าด้วยกัน จะได้จัดการไฟล์ จะได้ เข้าถึงที่อยู่ไฟล์ได้ง่าย
 * ข้อดีของ Block คือทำให้พวก File System มีขนาดเล็กลง เพราะถ้าไม่แบ่ง block ก็จะทำให้ต้องมีตัวอ้างอิงไปยัง block ต่างๆถึงครึ่งนึงเลย
