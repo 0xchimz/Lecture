@@ -93,7 +93,7 @@ EAT = เจอใน TLB + ไม่เจอใน TLB
 ###### Example
 alpha = 80%, Associative Lookup = 20ns for TLB search, 100 ns for memory access<br>
 EAT = (80/100 x 100) + (20/100 x (100 + 100))<br>
-EAT = 200 ns<br>
+EAT = 120 ns<br>
  - เวลาไม่เจอใน TLB ต้องไปหาใน Page Table อีกรอบนึงเลยต้อง + 100 ns เข้าไปอีก
 
 ##Memory Protection
