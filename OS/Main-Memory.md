@@ -47,6 +47,7 @@ CPU -> Memory -> Hard disk
 ![](./imgs/multiple-allocation.jpg)
 
 ##Dynamic Storage-Allocation Problem
+* limit register กับ relocation register เพื่อเป็น HardWare ในการจัดการตำแหน่ง physical address ใหม่
 * วิธีว่าง Process ใน memory
   * First-fit - เจอช่องว่างพอก็ใส่เลย
   * Best-fit - ขนาดที่เข้าได้พอดีที่สุด
