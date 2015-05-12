@@ -1,10 +1,10 @@
 #Protection
 ##Principles of Protection
 * การป้องกันด้านความปลอดภัย
-* **privileges** - permission เป็นสิทธิ์ในการทำอะไรสักอย่างใน OS
+* **privileges** - permission (เอกสิทธิ์) เป็นสิทธิ์ในการทำอะไรสักอย่างใน OS
 * process / user / program / system / procedure / อะไรก็ตามที่ออกคำสั่งได้ เรียก รวมๆว่า **Domain**
 * **แต่ละ Domain จะมี privileges ต่างกัน**
-* _ใน 1 OS ควรจะกระจายระดับ privileges ไม่ควร รวมเอาไว้ใน 1 Domain_
+* _ใน 1 OS ควรจะกระจายระดับ privileges ไม่ควร รวมเอาไว้ใน 1 Domain_ -> principle of least privilege
 * จะจำกัดผลกระทบได้ หากมี Domain ใด โดน Hack
 * การที่แยก privileges ทำให้สามารถกระจายหน้าที่ได้ดี
 
@@ -16,12 +16,13 @@
 * employee - open door
 
 ###Fine-grained  
-* ให้ Privileges แบบละเอียดๆ - เหมือนการให้กุญแจบ้านแบ่งเป็นห้องๆ
-* employee - office hour
-  * ACL, RBAC
+* ให้ Privileges แบบละเอียดๆ เจาะจงมากกว่า - เหมือนการให้กุญแจบ้านแบ่งเป็นห้องๆ
+* employee - open door in ... office hour
+* **Ex.** ACL, RBAC
 
 ##Domain Structure
-* Access-right ความสามารถในการเข้าถึงต่างๆ
+* **Access-right** ความสามารถในการเข้าถึงต่างๆ
+  * (object, rights-set)
 * Domain - set of access right
 
 ##Domain Implementation (UNIX)
@@ -31,6 +32,7 @@
 * คำสั่ง su - ไปใช้ root คือจะ switch ไปใช้ user นั้นเลย จนกว่าจะใช้คำสั่ง exit ถึงจะออกจาก user นั้น
 * คำสั่ง sudo - ไปใช้ root คือจะ switch ไปใช้ user นั้นแค่เฉพาะคำสั่งนั้นๆเท่านั้น
 * ทั้งสองตัวจะต้อง login password ทั้งคู่ ถ้า user นั้นๆ มี รหัสผ่าน
+
 ##Domain Implementation (MULTICS)
 ![](./imgs/MULTICS.jpg)
 * วงใหญ่กว่าจะมีสิทธิ์มากกว่าวงที่เล็กกว่า
@@ -67,22 +69,27 @@
 
 ###Option 2 – Access lists for objects
 * (domain, right-set)
+* เก็บว่า Domain ไหนมี right set อะไรบ้างใน object
 * วิธีนี้จะเก็บ privilege ไว้ที่ไฟล์แทนที่จะเก็บไว้แบบ global table
 * เวลาจะใช้งาน Domain จะเรียก Object ใน Object ก็จะเช็คใน Access List ของตัวเองว่า Domain นี้เข้าไปใช้งานตัวมันได้หรือไม่
 * ข้อดีคือ เวลาเราสร้าง Object มาก็จะกำหนดได้เลย ว่า จะให้ใครเข้าไปใช้งานมันได้หรือไม่
+![](./imgs/ACL.jpg)
 
 ###Option 3 – Capability list for domains
 * Domain เป้นคนเก็บ privilege list แทน
-* มันจะแปลกตรงที่ว่า Domain จะเข้าไปยุ่งกับ privilege นี้ไม่ได้
+* รู้ว่าตัวเองทำอะไรได้บ้าง
+* มันจะแปลกตรงที่ว่า Domain จะเข้าไปยุ่งกับ privilege นี้ไม่ได้ (มองเห็น privelege เหมือน read-only file)
 * เวลา Domain จะเข้าไปเปิด object ใด ก็จะมี point เชื่อมระหว่าง Object กับ privilege ของ Domain ได้ แล้วเข้ามาดูว่าใน Domain นั้นมีสิทธิ์หรือเปล่า
 * ข้อเสียคือ เวลาเราสร้าง Object ใหม่ มันจะลำบากเวลาเพิ่มเข้าไปใน Domain ต่างๆทุกอัน
 * Revoke เวลาจะลบ access พวกนี้ มันจะลำบากเพราะต้องไปหาในทุกๆ Domain
+![](./imgs/CList.jpg)
 
 ###Option 4 – Lock-key
 * เก็บทั้งแบบ Access List และ capability List
 * Object จะเก็บ locks
 * Domain จะเก็บ keys
 * เวลาจะใช้งานกันถ้า เอา locks กับ keys มา match กันรู้ทันทีว่าเข้ามาใช้งานได้หรือเปล่า
+![](./imgs/LockAndKey.jpg)
 
 ##Comparison of Implementations
 
@@ -118,7 +125,7 @@
 * ลบแล้วหายทันที กับ ลบแล้วดีเลย์
 
 ###Selective VS General
-* ลบแล้วเลือกเฉพาะบาง User กับ ลบแล้วหายหมดเลย
+* ลบแล้วเลือกเฉพ0าะบาง User กับ ลบแล้วหายหมดเลย
 
 ###Partial VS Total
 * ลบได้แบบเฉพาะบางส่วน กับ ลบแล้วหายหมดเลย
@@ -143,4 +150,4 @@
 * ส่วนใหญ่จะใช้ Lock Key
 
 ###Cambridge CAP System
-* Data capability 
+* Data capability
