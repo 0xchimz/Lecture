@@ -49,8 +49,9 @@ CPU -> Memory -> Hard disk
 ##Dynamic Storage-Allocation Problem
 * วิธีว่าง Process ใน memory
   * First-fit - เจอช่องว่างพอก็ใส่เลย
-  * Best-fit - ก็
-  * Worst-fit -
+  * Best-fit - ขนาดที่เข้าได้พอดีที่สุด
+  * Worst-fit - แจกช่องว่างใหญ่สุดไปให้ process
+    - เช่น มี process ขนาด 2 ดันจ่าย memory ให้ 1000 ช่อง
 
 ##Fragmentation
 1. **external** - มีพื้นที่ว่างเล็กๆจำนวนมาก ทำให้ใส่ Process ลงไปไม่ได้เลย ก็เลยต้อง _compaction(บีบอัด)_ ให้เหลือที่เยอะๆ จะได้จัด Process ลงได้
