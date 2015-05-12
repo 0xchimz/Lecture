@@ -175,3 +175,10 @@ page อันไหนใช้งานบ่อยๆก็จะยกขึ
 2. TLB - เหมือนในเรื่อง main memory เป็น cache ที่มาช่วยเก็บ page ที่ใช้บ่อยๆอีกที / ใน TLB ในทางนิยามมันคือตัวเดียวกับ working set ซึ่งถ้ามีขนาดใหญ่ขึ้นก็จะทำให้เห็น page เยอะขึ้น
 3. Program Structure - ในบางครั้งเราสามารถลด page fault ได้จากการเขียนโปรแกรมให้ดี
 4. I/O interlock - การจอง memory ให้ page เลย จองไว้ตลอดเลย แต่มีข้อเสียถ้าจองเยอะๆ มันจะเต็มได้
+
+##จากคลิป
+when write file the data goes user->kernel->device
+
+user->kernel can be slow 2 reasons
+  1. its slow because kernel space and user space have different protection mode. To transfer data, or cross the protection boundary, the memory differences between the two has to be resolve.
+  2. There is ocillary micro?(idk) and certain function call that linux has to use to copy the data back and forth between kernel and user.
