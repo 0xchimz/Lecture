@@ -123,4 +123,17 @@ ZFS - ใช้ใน Solari ของ SUN Java
 
 ##Recovery
 * เวลาเปิดคอมมาใหม่มันจะทำการ Scan Disk
-* ทำงานโดยที่ดูที่ Master File Table ว่าใน Link มันตรงกับไฟล์ที่เก็บไว้ใน Disk หรือเปล่า ถ้าไม่ตรงก็เอามาสร้างชื่อใหม่ใน Master File Table 
+* ทำงานโดยที่ดูที่ Master File Table ว่าใน Link มันตรงกับไฟล์ที่เก็บไว้ใน Disk หรือเปล่า ถ้าไม่ตรงก็เอามาสร้างชื่อใหม่ใน Master File Table
+
+##Log Structured File Systems
+* Log structured (journaling)
+* ระบบไฟล์สมัยนี้ใช้ Journal แล้ว หลักการคือ เก็บ Log ทุกการกระทำ
+* ทุกการกระทำจะเก็บ ลง Journal ก่อน
+* ถ้าเขียนลง Journal แล้วแต่ไฟดับ ยังไม่ทันจะทำงานที่ต้องการเลย Journal ก็จะค้างอยู่ยังไม่ทันลบ พอเปิดเครื่องมาใหม่ ก็จะทำตาม Journal ใหม่อีกรอบแล้ว ลบ Journal ทิ้ง
+* ถ้าเขียนลง Journal แล้วไฟดับกลางทาง มันก็จะลบ Journal ทิ้งไปเลย เพราะ Journal เสีย
+* ดังนั้นไฟล์จะไม่มีทางพัง ไม่มีทางเป็นครึ่งๆกลางๆ
+
+##Virtual File System
+* คือ จำลองไฟล์ธรรมดาเป็นระบบ File system ใหม่
+* ทำให้ File System เป็น interface แล้วไปเขียนโปรแกรม implement คำสั่งพวกนี้
+* เช่นการจำลองไฟล์ .iso เป็น ไดร์ฟใหม่ที่มี File System
