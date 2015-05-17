@@ -144,9 +144,14 @@ WHERE OffTerm = 'WINTER' AND OffYear = 2006 AND Faculty.FacSSN = Offering.FacSSN
 ```
 ####การทำงาน
 >**LOOP** 1 until numOf row :
+
 >**OUTER QUERY** : sql จะ query จากเงื่อไขใน WHERE
+
 >เช็ค NOT EXISTS =>
+
 >**INNER QUERY** : ใช้ค่า Faculty.FacSSN จาก OUTER QUERY ของ row นั้นๆ
+
+>กลับไปวน Loop ต่อ จนครบจำนวน row
 
 - นอกจาก IN แล้ว ยังมีการใช้ NOT IN ได้อีก หรือ มองอีกแง่คือ !=
 - ยังมีคำสั่ง IS NULL อีก ซึ่งก็คือ ค่าของ column นั้นๆ เป็น NULL หรือเปล่า
