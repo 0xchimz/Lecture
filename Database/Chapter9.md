@@ -194,4 +194,73 @@ SELECT StdNo FROM StdClub GROUP BY StdNo HAVING COUNT(*) = ( SELECT COUNT(*) FRO
 - ขั้นแรกจะ COUNT จำนวน Club ออกมาก่อน
 - หานักเรียนจากตาราง StdClub (ตารางที่เอาไว้เชื่อม Student กับ Club เพื่อบอกว่า นักเรียนคนไหนอยู่ Club ไหนบ้าง)
 - มันก็จะ Group นักเรียนที่มี StdNo เดียวกัน แล้วเรียก COUNT ออกมา เพื่อดูจำนวน Club ที่ นักเรียนคนนั้นอยู่
-- ถ้าจำนวน Club ที่นักเรียนคนนั้นอยู่ = จำนวน Club ที่มีก็จะแสดงผลออกมา ตามเงื่อนไขใน HAVING 
+- ถ้าจำนวน Club ที่นักเรียนคนนั้นอยู่ = จำนวน Club ที่มีก็จะแสดงผลออกมา ตามเงื่อนไขใน HAVING
+
+###Typical Division Problems
+ไม่ต่างกับข้างบน
+
+```sql
+SELECT Student1.StdNo, SName FROM StdClub, Club, Student1
+WHERE StdClub.ClubNo = Club.ClubNo
+AND Student1.StdNo = StdClub.StdNo
+AND CPurpose = 'SOCIAL'
+GROUP BY Student1.StdNo, SName
+HAVING COUNT(*) =
+( SELECT COUNT(*) FROM Club WHERE CPurpose = 'SOCIAL' )
+```
+
+##Advanced Division Problems
+- ที่ผ่านมาใช้หาอะไรที่มันเหมือนๆกัน อันนี้ใช้หาจำนวนที่ต่างกัน
+- ใช้ `COUNT(DISTINCT column)`
+
+ตัวอย่าง
+
+```sql
+SELECT Faculty.FacSSN, FacFirstName,
+FacLastName
+FROM Faculty, Offering
+WHERE Faculty.FacSSN = Offering.FacSSN
+AND OffTerm = 'FALL'
+AND CourseNo LIKE 'IS%'
+AND OffYear = 2005
+GROUP BY Faculty.FacSSN, FacFirstName,
+FacLastName
+HAVING COUNT(DISTINCT CourseNo) =
+( SELECT COUNT(DISTINCT CourseNo)
+FROM Offering
+WHERE OffTerm = 'FALL' AND
+OffYear = 2005 AND
+CourseNo LIKE 'IS%' )
+```
+**INNER QUERY** : จะหาจำนวนของ Course ทั้งหมด จากเงื่อนไข หลัง `WHERE`
+
+**OUTER QUERY** : จะ Query ออกมาตามเงื่อนไขใน `WHERE` แล้ว Group `GROUP BY Faculty.FacSSN, FacFirstName, FacLastName)` แล้วเช็คเงื่อนไข ใน `HAVING` โดย ถ้า จำนวน Course ที่ต่างกันใน `OUTER QUERY` เท่ากับ จำนวน Course ใน INNER QUERY ก็จะแสดงผล row นั้นๆออกมา
+
+##Aggregate Functions
+
+_Account_
+
+| userId | Username | heroId |
+| ---------- |:-------:| ------------- |
+| 00001 | ChinCluBi | 02 |
+| 00002 | Ongoing | 01 |
+| 00003 | smartLT | 04 |
+| 00004 | iNont | 05 |
+| 00005 | ChokePed | null |
+
+- ลองป้อนคำสั้่ง  `SELECT COUNT(*) FROM account` หรือ `SELECT COUNT(heroId) FROM acount`
+- `COUNT(*)` จะแสดงผล 5 ส่วน `COUNT(heroId)` จะแสดงผล 4
+  - ทำไมถึงต่างกันวะ? `COUNT(heroId)` จะแสดงผลเฉพาะจำนวนที่มัน non-null เท่านั้น
+- ลองเปลี่ยน COUNT เป็น SUM
+- `SUM(userId)` = 15, `SUM(heroId)` = 12 ถ้าเอามาบวกกัน `SUM(userId)+SUM(heroId)` = 27
+- แต่ถ้า `SUM(userId + heroId)` = 22 _แล้วไมไม่เท่ากัน?_
+  - เพราะว่าถ้าลองไล่ `userId + heroId` ทีละ row จะได้
+    - 1 + 2 = 3
+    - 2 + 1 = 3
+    - 3 + 4 = 7
+    - 4 + 5 = 9
+    - **5 + null = null**
+    - พอได้ผลลัพธ์แต่ละ row แล้ว มันจะบวกทุกๆ row ที่ได้ ทำให้ตอบ 22
+
+##Grouping Effects
+- ในการ Group NULL ถือเป็นอีก 1 group เลย
