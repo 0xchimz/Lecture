@@ -145,6 +145,7 @@ WHERE OffTerm = 'WINTER' AND OffYear = 2006 AND Faculty.FacSSN = Offering.FacSSN
 ####การทำงาน
 >**LOOP** 1 until numOf row : <br>
 >**OUTER QUERY** : sql จะ query จากเงื่อไขใน WHERE<br>
+
     >>เช็ค NOT EXISTS =><br>
     >>**INNER QUERY** : ใช้ค่า Faculty.FacSSN จาก OUTER QUERY ของ row นั้นๆ<br>
 
