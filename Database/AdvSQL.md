@@ -1,4 +1,4 @@
-#Chapter9 - Advanced Query Formulation with SQL
+#Advanced Query Formulation with SQL
 > แนะนำให้ดู Slide ของอาจารย์ตามไปด้วย
 
 ##SQL Outer Join
