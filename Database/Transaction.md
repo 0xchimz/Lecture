@@ -35,7 +35,7 @@
 
 ##Transaction Processing Services
 - **Concurrency Control** - การรักษาความถูกต้องให้กับข้อมูล
-- **Recovery Management** -
+- **Recovery Management** - การกู้คืนข้อมูลในกรณีที่เกิดข้อผิดพลาด
 - **Service Characteristics** -
 
 ##Concurrency Control
@@ -153,3 +153,56 @@ Lock เป็นเทคนิคการกำหนดสถานะให
 แบ่งออกเป็น 2 ส่วน ได้แก่
 1. **W-Timestamp** เวลาล่าสุดที่ข้อมูลถูกเขียน (มีการเปลี่ยนค่า)
 2. **R-Timestamp** เวลาล่าสุดที่ข้อมูลถูกอ่าน (ถูกนำไปใช้งาน)
+
+![](./imgs/tran-6.jpg)
+
+จากภาพข้างบน T5 `read(X)` ซึ่งในตลอดการทำงานของ T5 ไม่มีการเขียนค่า x ต่ออีกเลย ซึ่งแตกต่างจากการ `read(Z)` และ `write(Z)` ต่อ ดังนั้น T3 จึงไม่ทำการ `write(Z)` ไม่ได้ เพราะ ถ้ายอมให้ T3 เข้าไปเขียนค่า Z จะทำให้การทำงานของ T5 ผิดพลาด
+
+##Recovery Management
+
+คือกระบวนการเรียกคือข้อมูลและสถานะของฐานข้อมูลให้กลับมาทำงานได้ตามปกติในกรณีที่มีข้อผิดพลาดเกิดขึ้นกับฐานข้อมูล
+
+วิธีในการ Recovery ฐานข้อมูล
+1. Transaction Log
+2. Checkpointing
+
+###Storage Device Basics
+- **Volatile** นึกภาพ RAM หายถ้าปิดเครื่อง
+- **Nonvolatile** Disk ต่อให้ปิดเครื่องก็ไม่หาย คงอยู่ถาวร
+
+###Transaction Log
+- เป็นประวัติของ Database
+- เปลืองพื้นที่ในการจัดเก็บ
+- กระบวนการ
+  - **Undo** กลับไปสถานะก่อนหน้า
+  - **Redo** ทำ State นั้นๆใหม่อีกรอบ
+
+_ตัวอย่างของ Transaction Log_
+![](./imgs/tran-7.jpg)
+
+###Checkpointing
+- ลดการที่ต้องทำใหม่เรื่อยๆ (ก็ข้ามไปที่ check point ทีเดียวเลย ไม่ต้อง undo หลายๆรอบ) แต่วิธีนี้ก็เปลืองพื้นที่กว่าเดิมอีก
+- เวลา CheckPoint ทำงาน ทุกๆ Transaction จะหยุดทำงานหมดเลย
+
+####Immediate Update Recovery
+
+![](./imgs/tran-8.jpg)
+
+**T1** จะไม่โดน `Redo` ใหม่เพราะว่าเสร็จก่อนจะถึง check point
+
+**T2** จะถูก `Redo` ใหม่ เพราะมีส่วนที่อยู่หลัง check point แต่จะทำใหม่เฉพาะส่วนหลัง check point
+
+**T3**, **T5** เนื่องจากทำงานตั้งแต่ก่อน check point จน system fail แล้วก็ยังไม่เสร็จ ดังนั้น T3,T5 จะถูก `Undo` กลับไป State ก่อนหน้าที่จะทำ T3,T5 **ROLLBACK**
+
+**T4** ระบบจะ `Redo` T4 ใหม่ทั้งหมดเนื่องจากอยู่หลัง CheckPoint
+
+####Deferred Update Recovery
+
+![](./imgs/tran-8.jpg)
+
+จากภาพเดิม
+
+**T3** กับ **T5** จะถูก `Restart` ให้ทำานใหม่อีกรอบ จะไม่มีการ Undo
+
+###Transaction Boundary Decisions
+อ่านเองในสไลด์ 79 เป็นต้นไปไม่มีอะไรมาก อ่านทำไม =3=
