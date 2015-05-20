@@ -106,6 +106,8 @@ Inconsisten มีทั้งหมด 3 แบบ
 2. Non-repeatable Reads
 3. Incorrect Summary
 
+**Incorrect Summary** เป็นปัญหาที่เกิดจากเวลาที่ 1 Transaction อ่านข้อมูลออกไปหลายค่า แต่ขณะที่ Transaction นั้นๆกำลังทำงาน มีอีก 1 Transaction เข้ามาแก้ไขค่าใดค่าหนึ่งใน Transaction แรก
+
 ###How to solve Concurrency Control Problem?
 
 ####1).Locking
