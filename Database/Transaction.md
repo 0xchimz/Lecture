@@ -56,12 +56,13 @@
 ![](./imgs/tran-2.jpg)
 
 ###Concurrency Control Problem
-ปัญหาจากการเข้าถึงข้อมูลพร้อมกันมี 4 ประเภท ได้แก่ (ในสไลด์อาจารย์เขียนไว้ 4 แต่ข้างนอกเขียนไว้ 3)
+ปัญหาจากการเข้าถึงข้อมูลพร้อมกันมี 3 ประเภท ได้แก่
+
+Throughput - the number of transactions processed per time unit
 
 1. Lost Update Problem
 2. Uncommitted Dependency Problem
 3. Inconsistent Retrieval Problems
-4. Incorrect summary  problem
 
 ####Lost Update Problem
 สาเหตุนี้เกิดขึ้นในกรณีที่ 2 Transaction หรือมากกว่า เรียกใช้ ข้อมูลเดียวกัน ต่างฝ่ายต่างเข้าไปปรับปรุงข้อมูล โดยไม่มีการป้องกันจากอีกฝ่ายหนึ่ง
@@ -99,11 +100,11 @@
 
 _ตัวอย่างในสไลด์ที่ 33-34_
 
+Inconsisten มีทั้งหมด 3 แบบ
 
-####Incorrect Summary Problems
-ปัญหารการวิเคราะห์ข้อมูลที่ขัดแย้งกัน เป็นปัญหาที่เกิดจากมี Transaction ต้องการจะอัพเดทค่า แต่ผลลัพธ์ยังไม่ได้การ Commit ส่งผลให้ Transaction ใหม่ที่เข้ามาอ่านค่าขณะยังไม่ได้อัพเดท อ่านค่าที่ผิดไป
-
-_ตัวอย่างในสไลด์ที่ 36_
+1. Phantom Reads
+2. Non-repeatable Reads
+3. Incorrect Summary
 
 ###How to solve Concurrency Control Problem?
 
