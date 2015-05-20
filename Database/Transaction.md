@@ -139,7 +139,7 @@ Lock เป็นเทคนิคการกำหนดสถานะให
 - แนวคิดของวิธีนี้คือ
   - จะต้อง `lock` ก่อนที่จะทำงานกับ item ใดๆ
   - `wait` เมื่อ item ที่ต้องการอยู่ในสถานะ lock
-  - ใน 1 Transaction ถ้า unlock แล้ว ไม่สามารถทำการ lock ได้อีกครั้ง
+  - ใน 1 Transaction ก่อนจะ unlock ต้องทำการ lock ให้หมดก่อน ถึงจะเข้า phase ที่ unlock ได้ ถ้าเข้า phase unlock แล้วจะเข้า phase lock ไม่ได้อีก
 - การทำงานแบ่งออกเป็น 2 ระยะ ได้แก่
   1. Expanding phase
     - ระยะที่ Transaction จะทำการ Lock data item ที่ตนต้องการทำงานไปเรื่อยๆ จนกว่าจะได้รับ data item ครบตามที่ตนเองต้องการ ซึ่งในระยะนี้ Transaction จะไม่ยอมให้ Transaction อื่นๆเข้ามาใช้งาน item ที่ตัวเอง lock เอาไว้เด็ดขาด
