@@ -5,7 +5,9 @@
 ###Testis - อัณฑะ
 
   - ระยะที่ยังเป็นเด็กอ่อนพัฒนาอยู่ในช่องท้องก่อน พอใกล้คลอดก็ค่อยออกมาอยู่ในถุงอัณฑะ
-  - ทำหน้าที่ผลิต 1. Sperm: สร้างจาก Seminiferous Tubule(หลอดสร้างอสุจิ) 2. Testosterone: สร้างจาก Interstitial Cell(Leydig Cell)
+  - ทำหน้าที่ผลิต  
+    1. Sperm: สร้างจาก Seminiferous Tubule(หลอดสร้างอสุจิ)
+    2. Testosterone: สร้างจาก Interstitial Cell(Leydig Cell)
 
 ###Scrotum - ถุงอัณฑะ
 
