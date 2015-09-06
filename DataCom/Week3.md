@@ -17,19 +17,26 @@
 ### แล้วอะไรเป็น Protocol ที่จะใช้ในการแสดงผลเว็บละ?
 
 > **Browser** เป็นเหมือน Client Software ที่ติดต่อกับ Webserver แล้วมันรู้ได้ไงว่ามันจะเอาอะไรมาแสดง?
+
 > แล้ว **Webserver** รู้ได้ไงว่า Client ต้องการอะไร?
 
 **HTTP** - HyperText Transfer Protocol
+
 **HTTPS** - Hyper Text Transfer Protocol with Secure Sockets Layer (SSL)
+
 **TCP** - Transmission Control Protocol
+
 **IP** - Internet Protocol
 
 > ที่กล่าวมาทั้งหมดนี้เป็น Protocol หมดเลย เรามีหลาย Level ของ Protocol เพื่อช่วยกันให้ Internet สามารถทำงานได้
-> ส่วน Protocol ที่ Fetch เอาเนื้อหาจาก Webserver มาแสดงผลเป็นเว็บไซต์ คือ HTTP/HTTPS
-> Socket มันทำงานอยู่บน TCP
-> IP ถ้าจะต่อ Internet ต้องใช้ตัวนี้ในการเชื่อมต่อ
 
-#### HTTP, TCP, IP. How it's work?
+> ส่วน Protocol ที่ Fetch เอาเนื้อหาจาก Webserver มาแสดงผลเป็นเว็บไซต์ คือ **HTTP/HTTPS**
+
+> **Socket** มันทำงานอยู่บน TCP
+
+> **IP** ถ้าจะต่อ Internet ต้องใช้ตัวนี้ในการเชื่อมต่อ
+
+###HTTP, TCP, IP. How it's work?
 
 ## Traditional Internet Application
 
@@ -45,24 +52,20 @@
 ### HTTP GET Requests/Responses
 
 คำสั่งพื้นฐานในการ GET ค่าผ่าน HTTP
-  * _GET /index.html HTTP/1.1_
+
+  ``` _GET /index.html HTTP/1.1_```
 
 เมื่อ Client ส่งคำสั่ง GET ไปยัง Server ตัว Server ก็จะตอบกลับบางอย่างกลับมา เช่น
 
+```HTML
 HTTP/1.0 200 OK
-
 Server: Apache/1.3.37
-
 Content-Length: 221
-
 Content-Type: text/html
-
-< HTML >
-
+<HTML>
 :
-
-< /HTML >
-
+</HTML>
+```
 แล้ว Browser ก็จะ render ออกมาให้เราดู
 
 #### Wireshark
@@ -72,26 +75,39 @@ Content-Type: text/html
 
 ## Packet Switching, Layer Models and Protocol Suites
 
+![](img/wk3_001.png)
+จากภาพ A จะส่งข้อมูลไปหา B ก็ต้องผ่าน Protocol ซึ่ง Protocol ส่วนใหญ่จะเป็น Software การเชื่อมต่อผ่าน Internet ของ A ไป B จะต้องเหมือนกับการต่อกันโดยตรง แต่การที่จะส่งข้อมูลโดยตรงผ่าน Internet เลยนั้นทำไม่ได้ ต้องใช้ protocol เข้ามาช่วย
+
 ### Dedicated circuits
-- เหมือนการต่อไปตรงๆ แบบต่อหมดทุกเครื่อง ธรรมดาไม่มีอะไร
+- เหมือนการต่อไปตรงๆ แบบต่อหมดทุกเครื่อง ธรรมดาไม่มีอะไร ถ้าต้องการจะ connect ไปไหนก็ต่อไปตรงๆเลย
+  - ปลอดภัยมาก เพราะต่อเข้าตรงๆ
+  - แต่ถ้าต้องการจะเปลี่ยนเครื่องที่เชื่อมต่อ ต้องทำการดึงปลั๊กออกแล้วก็เสียบเข้ากับเครื่องใหม่
+  - ในอดีตต้องมีคนเปลี่ยนสาย Link ให้
+
+![](img/wk3_002.png)
 
 ### Circuit Switching
-- ในอดีตคนเปลี่ยน switch เป็นคนธรรมดา ซึ่งตอนโทรต้องโทรแจ้งว่าจะต่อไปที่ไหน ก็ต้องบอกเค้า แล้วเปลี่ยนตัว Telephone switch ไปเรื่อยๆ
+- connect ไปยัง central switch
+- ในอดีต central switch จะมีคนคอยดูให้ว่าจะโทรไปหาเบอร์อะไร ขั้นแรกต้องบอก Operator ก่อนว่าจะโทรไปหาใคร แล้ว Operator ก็จะต่อไปยังเบอร์ที่เราต้องการให้ แล้วจึงสามารถคุยกันได้
+  - ข้อเสีย คือ มีคู่สายเป็นของตัวเอง คนอื่นมาใช้งานไม่ได้ เพราะไม่ได้แชร์ใคร ทำให้เปลืองทรัพยากร
+  - ข้อดี คือ ไม่มีใครมาแชร์
 
-  - ข้อดีคือ
-    - ทุกอย่างมีเป็นของตัวเอง (คู่สาย)
-  - ข้อเสียคือ
-    - เนื่องจากไม่มีการแชร์ ทำให้เสียเปล่าทรัพยากร
+![](img/wk3_003.png)
+
+- ในปัจจุบัน automatic switch จะเปลี่ยนเส้นทางให้อัตโนมัติ
+- แทนที่จะต้องคุยกับ Central Switch ก็ให้ automatic Switch เป็นคนเปลี่ยนเส้นกาคุยให้
 
 ### Packet Switching
-- switch จะเปลี่ยนเส้นทางให้อัตโนมัติ ไม่ต้องไปยุ่งอะไรกับมัน
+
+![](img/wk3_004.png)
+
+- ระบบนี้เราไม่จำเป็นต้องกังวลเรื่องคู่สายเลย เพราะแชร์กันได้
+- ในการส่งแบบนี้ เราจำเป็นต้องแบ่งข้อมูลใหญ่ๆออกเป็นชิ้นเล็กๆ (Packet) ไม่ว่าข้อมูลจะใหญ่ขนาดไหนก็ตาม
+- ในแต่ละชิ้นต้องมี Source and Destination Address แปะไปด้วย
 
   - ข้อดี
     - แชร์กันทุกอย่าง ใช้ทรัพยากรได้คุ้มค่า
-
-- จำเป็นต้องมี Address ให้กับทุกๆ ที่เนื่องจากใช้เป็นตัวอ้างอิงสำหรับติดต่อ Node นั้นๆ
-- router จะรู้จักทุกๆ node ว่ามีหมายเลข Address อะไร ทำให้สามารถส่งไปได้ทุกที่
-- มีการส่งผ่านได้หลาย Link ถ้า Link ไม่ได้ใช้ก็จะให้คนอื่นใช้แทน ทำให้ใช้ทรัพยากรได้คุ้มค่า
+    - 1 Link สามารถแชร์กับคนอื่นได้ในกรณีที่ไม่ได้ใช้
 
 ### Internet Layer Models
 5 Layers Models
