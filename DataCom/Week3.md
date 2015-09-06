@@ -151,8 +151,7 @@ Responsible for providing services to the user
 
 #### Transport Layer
 ```Javascript
-Delivery of a message
-from one process to another
+Delivery of a message from one process to another
 ```
 - ทำหน้าที่ส่งข้อความ(คำสั่ง)จาก Process ไปยังอีก Process ต่อไป
 - **Ex.** TCP, UDP
@@ -179,8 +178,7 @@ from one process to another
 
 #### Network Layer
 ```Javascript
-The delivery of packets
-from the original source to the destination
+The delivery of packets from the original source to the destination
 ```
 - เป็นสิ่งที่สำคัญที่สุด และ เป็นชั้นที่ common ที่สุด
 - **Transport Layer** จะทำหน้าที่ส่งและรับ Process ต่อ Process แต่ **Network Layer** จะทำหน้าที่ส่ง และ รับ Hardware ต่อ Hardware
@@ -223,8 +221,7 @@ from the original source to the destination
 
 #### Data Link Layer
 ```Javascript
-Transmitting frames
-from one node to the next
+Transmitting frames from one node to the next
 ```
 - **Data Link Layer** ทำหนาที่ส่งข้อมูลไปยัง Device ต่อไป (ไม่จำเป็นต้องเป็นปลายทาง)
 - ข้อมูลที่ส่งไปในรูปแบบ **Frames**
@@ -261,8 +258,7 @@ _ตัวอย่างเช่น_ เวลาอาจารย์ถา�
 
 #### Physical Layer
 ```Javascript
-Transmitting individual bits
-from one node to the next
+Transmitting individual bits from one node to the next
 ```
 ![](img/wk3_015.png)
 - แปลง Binary Data เป็น Electronic Data(Bit)
