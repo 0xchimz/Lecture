@@ -1,4 +1,4 @@
-# Week3 (Draft)
+# Week3 (Full Version)
 
 ### ข้อดีของ Direct Communication กับ Internet Communication
 - **ความเสถียร** : ความเสถียร Internet มีความเสถียรมากกว่า เพราะว่าในปัจจุบันเราสามารถมีได้หลาย Router หลาย Hub (Cloud) ทำให้สามารถไปได้หลาย Link ไม่จำเป็นต้องไปเส้นทางเดียวกัน
